@@ -43,6 +43,10 @@ const CurrentUserFragment = gql`
         amount
         currency
       }
+      supportedPaymentProviders {
+        _id
+        type
+      }
     }
   }
   ${ProductFragment}

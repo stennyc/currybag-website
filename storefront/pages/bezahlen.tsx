@@ -123,6 +123,8 @@ const BillingSection = () => {
   const { updateCart } = useUpdateCartMutation();
   const { register, handleSubmit, watch } = useForm();
 
+  console.log(user);
+
   const sameAsDelivery = watch('same');
 
   const onSubmit = async ({
@@ -226,6 +228,18 @@ const BillingSection = () => {
 };
 
 const Payment = () => {
+  const { user } = useUserQuery();
+
+  console.log(user);
+
+  const handleCheckout = () => {
+    const paymentProvider = user.cart.supportedPaymentProviders.find(
+      ({ type }) => type === 'INVOICE',
+    );
+
+    // await updateCart({});
+  };
+
   return (
     <>
       <header className="header sticky-top">
@@ -235,12 +249,9 @@ const Payment = () => {
               <h3 className="my-2 mr-2">Currybag™</h3>
             </a>
           </Link>
-          <a
-            href="https://pay.sandbox.datatrans.com/upp/jsp/upStart.jsp?merchantId=1100004624&refno=1234567890&amount=1000&currency=CHF&theme=DT2015"
-            className="button button--primary"
-          >
-            Bestellung abschicken und bezahlen 💳
-          </a>
+          <button onClick={handleCheckout} className="button button--primary">
+            Bestellung abschicken
+          </button>
         </div>
       </header>
       <div className="container">
